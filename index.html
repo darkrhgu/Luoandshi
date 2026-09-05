@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>洛与时 · Luo&amp;Shi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 星星粒子 -->
+    <canvas id="stars"></canvas>
+
+    <!-- 全屏照片轮播(JS 自动生成) -->
+    <div class="slideshow" id="slideshow"></div>
+
+    <!-- 暗角,让文字更清晰 -->
+    <div class="vignette"></div>
+
+    <!-- 顶部标题 -->
+    <header>
+        <h1 class="title">洛与时</h1>
+        <p class="subtitle">L U O &amp; S H I &nbsp;·&nbsp; 2023.10.12</p>
+    </header>
+
+    <!-- 轮播小圆点 -->
+    <div class="dots" id="dots"></div>
+
+    <!-- 纪念日倒计时 -->
+    <main class="countdown">
+        <p class="cd-label" id="cdLabel">距离下一个纪念日</p>
+        <div class="cd-grid" id="cdGrid">
+            <div class="cd-card"><span id="cdDay">0</span><small>天</small></div>
+            <div class="cd-card"><span id="cdHour">0</span><small>时</small></div>
+            <div class="cd-card"><span id="cdMin">0</span><small>分</small></div>
+            <div class="cd-card"><span id="cdSec">0</span><small>秒</small></div>
+        </div>
+        <p class="together">我们已经一起走过 <b id="daysTogether">0</b> 天</p>
+    </main>
+
+    <!-- 页脚歌词 -->
+    <footer class="quote">
+        <p class="q1">依旧满怀希望地迎接明天</p>
+        <p class="q2">——《明天》 阿良良木健</p>
+    </footer>
+
+    <!-- 音乐按钮 -->
+    <button id="musicBtn" title="播放/暂停音乐">♪</button>
+    <audio id="bgm" src="assets/tomorrow.mp3" loop preload="none"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
