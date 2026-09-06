@@ -15,9 +15,16 @@ var timer = null;
 PHOTOS.forEach(function (src, idx) {
     var div = document.createElement('div');
     div.className = 'slide';
+    // 两层图:fill 是模糊放大的垫底,main 是完整显示的照片
+    var fill = document.createElement('img');
+    fill.src = src;
+    fill.className = 'fill';
+    fill.alt = '';
     var img = document.createElement('img');
     img.src = src;
+    img.className = 'main';
     img.alt = '回忆 ' + (idx + 1);
+    div.appendChild(fill);
     div.appendChild(img);
     slideshow.appendChild(div);
 
@@ -141,14 +148,37 @@ for (var s = 0; s < 120; s++) {
     requestAnimationFrame(drawStars);
 })();
 
-// ============ 音乐播放按钮 ============
+// ============ 音乐:进站自动播放(被拦截则等第一次触碰屏幕) ============
 var btn = document.getElementById('musicBtn');
 var bgm = document.getElementById('bgm');
 
+function startMusic() {
+    bgm.play().then(function () {
+        btn.classList.add('playing');
+    }).catch(function () { /* 仍然被拦就保持静音,用户可点按钮 */ });
+}
+
+// 浏览器拦截自动播放时,把"开始播放"挂到用户第一次触碰屏幕上
+(function autoPlayMusic() {
+    bgm.play().then(function () {
+        btn.classList.add('playing');
+    }).catch(function () {
+        var kick = function () {
+            startMusic();
+            document.removeEventListener('pointerdown', kick);
+            document.removeEventListener('touchstart', kick);
+            document.removeEventListener('keydown', kick);
+        };
+        document.addEventListener('pointerdown', kick);
+        document.addEventListener('touchstart', kick);
+        document.addEventListener('keydown', kick);
+    });
+})();
+
 btn.onclick = function () {
     if (bgm.paused) {
-        bgm.play();
-        btn.classList.add('playing');
+        startMusic();
+        if (!bgm.paused) btn.classList.add('playing');
     } else {
         bgm.pause();
         btn.classList.remove('playing');

@@ -31,17 +31,30 @@ body {
     opacity: 0;
     transition: opacity 1.6s ease-in-out;
 }
-.slide img {
+/* 垫底层:同一张照片放大裁剪 + 模糊压暗,填满屏幕当背景 */
+.slide img.fill {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;          /* 裁剪填满全屏,不变形 */
+    object-fit: cover;
+    filter: blur(26px) brightness(.4) saturate(1.4);
+    transform: scale(1.18);      /* 放大一点,防止模糊后边缘露白 */
+}
+/* 前景层:照片完整显示,不裁剪 */
+.slide img.main {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 /* 当前显示的图:淡入 + 缓慢放大(Ken Burns 效果) */
 .slide.active { opacity: 1; }
-.slide.active img { animation: kenburns 9s ease-out forwards; }
+.slide.active img.main { animation: kenburns 9s ease-out forwards; }
 @keyframes kenburns {
     from { transform: scale(1); }
-    to   { transform: scale(1.08); }
+    to   { transform: scale(1.05); }
 }
 
 /* 暗角 + 上下渐变,保证标题/卡片文字可读 */
